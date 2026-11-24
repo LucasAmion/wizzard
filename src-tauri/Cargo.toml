@@ -1,0 +1,25 @@
+[package]
+name = "wizzard"
+description = "Cross-platform desktop app for real-time control of Philips WiZ smart bulbs"
+version.workspace = true
+edition.workspace = true
+# tauri 2.12 requires Rust 1.90; wizzard-core stays at the workspace MSRV (1.85).
+rust-version = "1.90"
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+publish = false
+
+[lib]
+name = "wizzard_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2.7.5", features = [] }
+
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }
+tauri = { version = "2.12.6", features = [] }
+wizzard-core = { path = "../crates/wizzard-core" }

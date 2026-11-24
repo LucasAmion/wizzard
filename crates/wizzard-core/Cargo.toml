@@ -1,0 +1,34 @@
+[package]
+name = "wizzard-core"
+description = "Core lighting engine, colour pipeline, and configuration model for WiZzard"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation = "https://docs.rs/wizzard-core"
+readme = "README.md"
+keywords = ["wiz", "philips", "smart-home", "lighting", "led"]
+categories = ["hardware-support", "multimedia"]
+
+[package.metadata.docs.rs]
+all-features = true
+
+[features]
+default = ["colour", "engine", "net"]
+# Pure colour model and composition (wasm32-safe, no I/O).
+colour = ["dep:palette"]
+# Render loop and source traits (wasm32-safe via pluggable clock and sink).
+engine = ["colour"]
+# LAN bulb transport and discovery via wizlight (native only, not wasm32).
+net = ["dep:tokio", "dep:wizlight"]
+
+[dependencies]
+palette = { workspace = true, optional = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+tokio = { workspace = true, optional = true, features = ["rt", "sync", "time"] }
+wizlight = { workspace = true, optional = true }
